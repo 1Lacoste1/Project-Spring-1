@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Show person</title>
+</head>
+<body>
+<p th:text="${person.full_name + ', ' + person.getYear_of_birth()}">VALUE</p>
+
+<div th:if="${books.isEmpty()}">
+    <p>Человек пока не взял ни одной книги</p>
+    <hr/>
+</div>
+
+<div th:if="${!books.isEmpty()}">
+    <p> <b>Книги</b>:  <p/>
+    <div th:each="book : ${books}">
+        <a th:text="${book.getTitle() + ', ' + book.getAuthor() + ', ' + book.getYear()}"
+           th:style="${books.isEmpty()} ? 'color: red' : 'color: black'"> user </a>
+    </div>
+</div>
+<hr/>
+
+<form th:method="GET" th:action="@{/people/{id}/edit(id=${person.getId_p()})}">
+    <input type="submit" value="Редактировать"/>
+</form>
+
+<form th:method="DELETE" th:action="@{/people/{id}(id=${person.getId_p()})}">
+    <input type="submit" value="Удалить"/>
+</form>
+</body>
+</html>
